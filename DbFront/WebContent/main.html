@@ -1,0 +1,392 @@
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>NCCU Time Table</title>
+<link rel="stylesheet" type="text/css" href="css/0623.css" />
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"> </script>
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+		
+		var $folClicked;
+		var $folClicked1;
+		var $folClicked2;
+		var $folClicked3;//紀錄被點擊的追蹤課程
+		
+		$('td[id^="le-"]').click(function deletee() {
+			//課表點擊刪除課程
+			if ($(this).html() == "") {
+			} else {
+				if (confirm("是否要刪除此課程？") == true) {
+					//確認此門課幾學分，可以寫迴圈
+					var le = "le-tue3";  // 要改
+					var $le = $(document.getElementById(le));
+					var lel = "le-tue4"; // 要改
+					var $lel = $(document.getElementById(lel));
+					
+					$(this).html("");
+					$(this).css('background-color', '#4E5273');
+					$le.html("");
+					$le.css('background-color', '#4E5273');
+					$lel.html("");
+					$lel.css('background-color', '#4E5273');
+				}
+			}		
+		});
+		
+		$('.boTable').on('click','td', function() {
+			//點擊未修課程加進搜尋欄
+			if ($(this).html() == ""){
+			} else{
+				$("#text").val($(this).html());
+			}
+			
+		});
+		
+		$('.boTable').on('mouseenter','td', function() {
+			//未修課程hover效果
+			if($(this).html() == ""){
+			} else {
+			$(this).css('background-color', '#565869');
+			}
+		});
+		$('.boTable').on('mouseleave','td', function() {
+			//未修課程hover效果
+			if($(this).html() == ""){
+			} else {
+			$(this).css('background-color', 'var(--color-bg)');
+			}
+			
+		});
+		
+		
+		
+		$('#c-add').click(function() {
+			//追蹤加入課表
+			if ($('#le-mon2').html() == "" || $('#le-mon3').html() == "")// 只要看前兩堂課
+			{
+				$('#le-mon2').html('傳統醫學概論');
+				$('#le-mon3').html('某某某');
+				$('#le-mon2').css('background-color','#ffd7ba');
+				$('#le-mon3').css('background-color','#ffd7ba');
+				
+				$folClicked.remove();
+				$('.c-menu').toggle();
+				
+			}else {
+				alert("衝堂");
+				$('.c-menu').toggle();
+			}
+		});
+		
+		$('#c-conn').click(function() {
+			//連結課程大綱
+			$('.c-menu').toggle();
+		});
+		
+		$('#c-del').click(function() {
+			//取消追蹤
+			$folClicked.remove();
+			$('.c-menu').toggle();
+		});
+		
+		$('#searchResult').on('click','td',function() {
+			//點擊搜尋結果加入清單
+			var course = '<tr> <td> 傳統醫學概論 某某某 一12 <br>';
+			var detail = '<label class="detail">大勇333、學分數2.0</label></td> </tr>';
+			var table = course + detail;
+			$('#following').append(table);
+		});
+		
+		//function: 搜尋送出後跑出結果
+			// var course = '<tr> <td>000321102 周珮婷 四D56</td> </tr>';
+			// $('searchResult').append(course);
+		
+		$('#about').click(function() {
+			alert(' ----NCCU Time Table---- \n Hi! We are group 1 from DB Management Systems.');
+		});
+		
+		$('#logout').click(function() {
+			window.location.href="login.html";
+		});
+		
+		$('#following').on('mousedown','td',function(e){
+			//點擊追蹤課程出現選單
+		    if(e.which == 1){  
+		        var x = e.pageX;
+		        var y = e.pageY;
+		        $(".c-menu").css({
+		            "left": x + "px",
+		            "top": y + "px"
+		        });
+		        $(".c-menu").toggle();
+		        
+		        $folClicked = $(this);
+		        $folClicked1 = $(this).find('label').eq(0);
+		        $folClicked2 = $(this).find('label').eq(1);
+		        $folClicked3 = $(this).find('label').eq(2);
+		    }
+		});
+		
+	});
+	
+	
+		
+	
+	
+</script>
+
+</head>
+
+<body onload='init();'>	
+	<body style="background-color: #3d405b;">
+	<div class="header">
+		<div class="header-1">
+			<img src='img/schedule.png'>
+			NCCU Time Table
+		</div>
+		<div class="header-2">
+		</div>
+		<div class="header-3" id="about">
+			About Us
+		</div>
+		<div class="header-3" id="logout">
+			Log Out
+		</div>
+	</div>
+	<br><br><br><br>
+	
+	<div id="hello">
+		<!-- 改成學號或是名字 --> Welcome！<label id='userName'>小美女</label>
+		
+	</div>
+	
+	<div class="main">
+		<div>
+			<table class="schedule">
+			<thead>
+				<tr>
+					<th scope="col"> &nbsp; </th>
+					<th scope="col"> <br>Mon </th>
+					<th scope="col"> <br>Tue </th>
+					<th scope="col"> <br>Wed </th>
+					<th scope="col"> <br>Thu </th>
+					<th scope="col"> <br>Fri </th>
+				</tr>
+				</thead>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> A </th>
+					<td  id="le-monA"></td>
+					<td  id="le-tueA"></td>
+					<td  id="le-wedA"></td>
+					<td  id="le-thuA"></td>
+					<td  id="le-friA"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> B </th>
+					<td  id="le-monB"></td>
+					<td  id="le-tueB"></td>
+					<td  id="le-wedB"></td>
+					<td  id="le-thuB"></td>
+					<td  id="le-friB"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 1 </th>
+					<td  id="le-mon1"></td>
+					<td  id="le-tue1"></td>
+					<td  id="le-wed1"></td>
+					<td  id="le-thu1"></td>
+					<td  id="le-fri1"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 2 </th>
+					<td id="le-mon2"></td>
+					<td id="le-tue2"> 統計學 </td>
+					<td id="le-wed2"></td>
+					<td id="le-thu2"></td>
+					<td id="le-fri2"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 3 </th>
+					<td id="le-mon3"></td>
+					<td id="le-tue3"> 周珮婷 </td>
+					<td id="le-wed3"></td>
+					<td id="le-thu3"></td>
+					<td id="le-fri3"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 4 </th>
+					<td id="le-mon4"></td>
+					<td id="le-tue4"></td>
+					<td id="le-wed4"></td>
+					<td id="le-thu4"></td>
+					<td id="le-fri4"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> C </th>
+					<td  id="le-monC"></td>
+					<td  id="le-tueC"></td>
+					<td  id="le-wedC"></td>
+					<td  id="le-thuC"></td>
+					<td  id="le-friC"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> D </th>
+					<td id=le-"monD"></td>
+					<td id="le-tueD"></td>
+					<td id="le-wedD"></td>
+					<td id="le-thuD"> 資料庫管理 </td>
+					<td id="le-friD"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 5 </th>
+					<td id="le-mon5"></td>
+					<td id="le-tue5"></td>
+					<td id="le-wed5"></td>
+					<td id="le-thu5"> 周致遠 </td>
+					<td id="le-fri5"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 6 </th>
+					<td id="le-mon6"></td>
+					<td id="le-tue6"></td>
+					<td id="le-wed6"></td>
+					<td id="le-thu6"></td>
+					<td id="le-fri6"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 7 </th>
+					<td  id="le-mon7"></td>
+					<td  id="le-tue7"></td>
+					<td  id="le-wed7"></td>
+					<td  id="le-thu7"></td>
+					<td  id="le-fri7"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> 8 </th>
+					<td  id="le-mon8"></td>
+					<td  id="le-tue8"></td>
+					<td  id="le-wed8"></td>
+					<td  id="le-thu8"></td>
+					<td  id="le-fri8"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> E </th>
+					<td  id="le-monE"></td>
+					<td  id="le-tueE"></td>
+					<td  id="le-wedE"></td>
+					<td  id="le-thuE"></td>
+					<td  id="le-friE"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> F </th>
+					<td  id="le-monF"></td>
+					<td  id="le-tueF"></td>
+					<td  id="le-wedF"></td>
+					<td  id="le-thuF"></td>
+					<td  id="le-friF"></td>
+				</tr>
+				<tr class="tableContent">
+					<th scope="row" class="tableTitle"> G </th>
+					<td  id="le-monG"></td>
+					<td  id="le-tueG"></td>
+					<td  id="le-wedG"></td>
+					<td  id="le-thuG"></td>
+					<td  id="le-friG"></td>
+				</tr>
+			</table>	
+		</div>
+		<div class="item">
+			<div class="verticle">
+				<div class="searchField">
+					<input type='text' name='search' placeholder='Search...' id='text' />
+				</div>
+				<br>
+				<div class="searchResult">
+				<table class="resultTable table" id="searchResult">
+					<tr> <td>000321102 周珮婷 四D56</td> </tr>
+					<tr> <td>000321022 周珮婷 二234</td> </tr>
+					<tr> <td>000321042 翁久幸 二234</td> </tr>
+					<tr> <td>000321052 鄭宗記 二D56</td> </tr>
+					<tr> <td>000321012 洪英超 二234</td> </tr>
+					<tr> <td>000321102 周珮婷 四D56</td> </tr>
+					<tr> <td>000321022 周珮婷 二234</td> </tr>
+					<tr> <td>000321042 翁久幸 二234</td> </tr>
+					<tr> <td>000321052 鄭宗記 二D56</td> </tr>
+					<tr> <td>000321012 洪英超 二234</td> </tr>
+				</table>
+				</div>
+				
+				<div class="title">
+					追蹤清單
+				</div>
+				
+				<div class="followList">
+				<table class="resultTable table" id="following">
+					<tr> <td> <label>統計學</label>&nbsp;<label>周珮婷</label>&nbsp;<label>四D56</label> <br> <label class="detail">資訊306、學分數3.0</label></td> </tr>
+					<tr> <td> 統計學 周珮婷 二234 <br><label class="detail">研究103、學分數3.0</label></td> </tr>
+					<tr> <td> 資料庫管理 周致遠 二D56 <br><label class="detail">資訊306、學分數3.0</label></td> </tr>
+					<tr> <td> 資料庫管理 周致遠 四D56 <br><label class="detail">商管311、學分數3.0</label></td> </tr>
+					<tr> <td> 商事法 王立達 二234 <br><label class="detail">大勇105、學分數2.0</label></td> </tr>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <div class="c-menu">
+		 	<p class="c-menu-li" id="c-add">加入課表</p>
+		 	<p class="c-menu-li" id="c-conn">連結大綱</p>
+		 	<p class="c-menu-li" id="c-del">取消追蹤</p>
+	</div>
+	
+	<div class="titleBottom">
+		未修課程
+	</div>
+	<div class="unSelected">
+		<div class="unSelectedItem">
+			<div class="botit t1">
+				本系必修
+				</div>
+				<table class="table boTable">
+					<tr> <td> 統計學 </td> </tr>
+					<tr> <td> 商事法 </td> </tr>
+					<tr> <td> 資料庫管理 </td> </tr>
+					<tr> <td> 管理科學 </td> </tr>
+					<tr> <td></td> </tr>
+				</table>
+		</div>
+		
+		<div class="unSelectedItem">
+			<div class="botit t2">
+				雙主修
+			</div>
+				<table class="table boTable">
+					<tr> <td> 計算機程式設計 </td> </tr>
+					<tr> <td> 線性代數 </td> </tr>
+					<tr> <td> 普通物理學 </td> </tr>
+					<tr> <td> 電子電路學 </td> </tr>
+					<tr> <td></td> </tr>
+				</table>
+		</div>
+		
+		<div class="unSelectedItem">
+			<div class="botit t3">
+				輔系
+			</div>
+				<table class="table boTable">
+					<tr> <td></td> </tr>
+					<tr> <td></td> </tr>
+					<tr> <td></td> </tr>
+					<tr> <td></td> </tr>
+					<tr> <td></td> </tr>
+				</table>
+				
+		</div>
+	</div>
+</body>
+</html>
+
+</html>

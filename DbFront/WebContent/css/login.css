@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+:root{
+	--color-bg: #3d405b;
+	--color-red: #e07a5f;
+	--color-ivory: #f4f1de;
+	--color-yellow: #f2cc8f;
+	--font-e: "noto Sans TC", "Optima";
+	--font-c: "noto Sans TC";
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-e);
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.logo {
+	flex: none;
+	margin: 0px auto;
+	/*margin-left: -200px;*/
+	margin-top: 100px;
+}
+
+.input {
+	margin: 0px auto;
+	margin-top: 50px;
+	/*margin-left: -200px;*/
+	flex: none;
+}
+
+#studentId, #password {
+	
+	margin: 20px;
+	
+	
+	
+	padding: 8px 10px;
+	border: 2px solid var(--color-yellow);
+	border-radius: 10px;
+	width: 350px;
+	line-height: 20px;
+	background-color: var(--color-bg);
+	background-position: 10px 7px;
+	background-repeat: no-repeat;
+	padding-left: 12px;
+	font-size: 14px;
+	color: var(--color-ivory);
+	letter-spacing: 2px;
+}
+#studentId:focus {
+	border: 2px solid var(--color-ivory);
+}
+#password:focus {
+	border: 2px solid var(--color-ivory);
+}
+
+.btn {
+	flex: none;
+	margin: 0px auto;
+}
+
+#btn_login {
+font-size: 14px;
+width: 120px;
+height: 28px;
+line-height: 28px;
+text-align: center;
+color: var(--color-ivory);
+background-color: #4E5273;
+border-radius: 6px;
+border: 0;
+/*margin-left: -60px;*/
+margin-top: 50px;
+}
